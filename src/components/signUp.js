@@ -18,7 +18,7 @@ const [err, setErr] = useState();
     const onSubmit=async (val)=>{
         val.preventDefault();
     val.preventDefault();
-      let res = await fetch("http://localhost:4000/register", {
+      let res = await fetch("https://s3drive-aws.herokuapp.com/register", {
         method: "POST",
         headers: {
           "Content-type": "application/json",

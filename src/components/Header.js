@@ -1,10 +1,29 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React,{useState,useEffect} from "react";
+import { Link, Redirect } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
 import { Navbar, Nav, Container } from "react-bootstrap";
-const Header = () => {
+const Header = (props) => {
+const [redirect,setRedirect]=useState()
+const [userName, setUserName] = useState(props.name);
+
+const getUser=()=>{
+  if(redirect){
+    setUserName('Signin')
+  }else{
+    setUserName(props.name)
+  }
+}
+const logout=async ()=>{
+  await localStorage.setItem("token", "");
+  setUserName('SignIn');
+   setRedirect(true);
+}
+useEffect(()=>{
+ getUser();
+})
   return (
     <header>
+      {redirect? <Redirect to='/login'/>:null}
       <Navbar bg="light" expand="lg" collapseOnSelect>
         <Container>
           <Link to="/">
@@ -15,25 +34,15 @@ const Header = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ml-auto">
-              <LinkContainer to="/cart">
+          
                 <Nav.Link>
-                  <button type="button" class="btn btn-outline-primary">
-                    <i class="fas fa-plus"></i>
-                    Upload
-                  </button>
+                  <i className="fas fa-user"></i>&nbsp;
+                  {userName}
                 </Nav.Link>
-              </LinkContainer>
-
-              <Nav.Link>
-                <button type="button" class="btn btn-outline-success">
-                  Create Folder
-                </button>
-              </Nav.Link>
-              <LinkContainer to="/login">
-                <Nav.Link>
-                  <i className="fas fa-user"></i>&nbsp;Sign In
+             
+              <Nav.Link onClick={logout}>
+                  <i class="fas fa-sign-out-alt"></i>&nbsp; Logout
                 </Nav.Link>
-              </LinkContainer>
             </Nav>
           </Navbar.Collapse>
         </Container>
@@ -43,3 +52,5 @@ const Header = () => {
 };
 
 export default Header;
+
+

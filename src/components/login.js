@@ -12,7 +12,7 @@ const Login = () => {
   });
   const {email, password } = user;
   const [err,setErr]=useState();
-
+const [id,setIdd]=useState();
   const onChange = (val) => {
       setErr();
     setUser({ ...user, [val.target.id]: val.target.value });
@@ -23,7 +23,7 @@ const Login = () => {
       let email=user.email;
       let password=user.password;
     val.preventDefault();
-      let res = await fetch("http://localhost:4000/login", {
+      let res = await fetch("https://s3drive-aws.herokuapp.com/login", {
         method: "POST",
         headers: {
           "Content-type": "application/json",
@@ -31,12 +31,17 @@ const Login = () => {
         body: JSON.stringify({ email, password }),
       });
       let data=await res.json();
+      
+      await setIdd(data.id);
       await setErr(data.message);
-      console.log(data,user);
+      await localStorage.setItem("token", data.token);
+      
+      console.log(user,id,err);
     //   return data
   };
+
   useEffect(()=>{
-        setErr(err)
+      
   })
 
   return (
@@ -48,7 +53,7 @@ const Login = () => {
           <h2>
             <strong>Login</strong>
           </h2>
-          {err==='success' && <Redirect to='/dashboard'/>}
+          {err==='success' && <Redirect  to={`/dashboard/${id}`}/>}
           {err && <Alert message={err} />}
           <form className="form" onSubmit={onSubmit}>
             <fieldset>

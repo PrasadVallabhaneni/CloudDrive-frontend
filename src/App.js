@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 // import './App.css';
 import { BrowserRouter, Route } from "react-router-dom";
 import { Container } from "react-bootstrap";
@@ -9,14 +9,26 @@ import ForgotPass from './components/forgotPass';
 import ResetPass from './components/resetpass';
 import Dashboard from './components/dashboard';
 function App() {
+  const[user,setUser]=useState()
+
+  const getUser=(username)=>{
+       setUser(username)
+  }
+  //  useEffect(()=>{
+     
+  //  })
   return (
     <BrowserRouter>
-      <Header />
+      <Header name={user} />
+      <Route exact path="/" component={Login}></Route>
       <Route path="/signup" component={Signup}></Route>
       <Route path="/login" component={Login}></Route>
       <Route path="/forgotForm" component={ForgotPass}></Route>
       <Route path="/reset" component={ResetPass}></Route>
-      <Route path="/dashboard" component={Dashboard}></Route>
+      <Route
+        path="/dashboard/:id"
+        component={(props) => <Dashboard getUser={getUser} />}
+      ></Route>
     </BrowserRouter>
   );
 }
