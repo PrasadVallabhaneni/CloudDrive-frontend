@@ -23,13 +23,16 @@ const ResetPass = (props) => {
        console.log(mail,string,password);
    
     val.preventDefault();
-    let res = await fetch("http://localhost:4000/resetpassword/"+mail+'/'+string, {
-      method: "PUT",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({password}),
-    });
+    let res = await fetch(
+      "https://s3drive-aws.herokuapp.com/resetpassword/" + mail + "/" + string,
+      {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({ password }),
+      }
+    );
     let data = await res.json();
     console.log(err, data, user);
     await setErr(data.message);

@@ -16,12 +16,12 @@ const ForgotPass = () => {
   const onSubmit = async (val) => {
     let email = user.email;
     val.preventDefault();
-    let res = await fetch("http://localhost:4000/forgot", {
+    let res = await fetch("https://s3drive-aws.herokuapp.com/forgot", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
       },
-      body: JSON.stringify({ email}),
+      body: JSON.stringify({ email }),
     });
     let data = await res.json();
     await setErr(data.message);

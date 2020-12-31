@@ -28,7 +28,7 @@ useEffect(()=>{
         <Container>
           <Link to="/">
             <Navbar.Brand style={{ color: "green" }}>
-              <i class="fab fa-google-drive fa-2x">GetIntoDrive</i>
+              <i class="fab fa-google-drive fa-2x">My Drive</i>
             </Navbar.Brand>
           </Link>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
