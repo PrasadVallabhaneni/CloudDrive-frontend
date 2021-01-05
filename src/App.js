@@ -8,6 +8,7 @@ import Login from "./components/login";
 import ForgotPass from './components/forgotPass';
 import ResetPass from './components/resetpass';
 import Dashboard from './components/dashboard';
+import FolderView from './components/folderView'
 function App() {
   const[user,setUser]=useState()
 
@@ -29,6 +30,7 @@ function App() {
         path="/dashboard/:id"
         component={(props) => <Dashboard getUser={getUser} />}
       ></Route>
+      <Route path="/folder/:id/:path" component={FolderView}></Route>
     </BrowserRouter>
   );
 }

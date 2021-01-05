@@ -26,11 +26,11 @@ useEffect(()=>{
       {redirect? <Redirect to='/login'/>:null}
       <Navbar bg="light" expand="lg" collapseOnSelect>
         <Container>
-          <Link to="/">
+          {/* <Link to="/dashboard"> */}
             <Navbar.Brand style={{ color: "green" }}>
               <i class="fab fa-google-drive fa-2x">My Drive</i>
             </Navbar.Brand>
-          </Link>
+          {/* </Link> */}
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ml-auto">
