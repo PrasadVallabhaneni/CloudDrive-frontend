@@ -38,7 +38,7 @@ const ForgotPass = () => {
             <strong>Enter Registered Email</strong>
           </h2>
 
-          {err && <Alert message={err} />}
+          {err && <Alert message={err} variant='info'/>}
           <form className="form" onSubmit={onSubmit}>
             <fieldset>
               <div class="form-group">

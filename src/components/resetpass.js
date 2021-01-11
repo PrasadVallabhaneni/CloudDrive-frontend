@@ -3,7 +3,6 @@ import { Container, Row, Col } from "react-bootstrap";
 import Alert from "./alert";
 const ResetPass = (props) => {
   const [user, setUser] = useState({
-     
     password: "",
   });
   const { password } = user;
@@ -24,19 +23,30 @@ const ResetPass = (props) => {
    
     val.preventDefault();
     let res = await fetch(
-      "https://s3drive-aws.herokuapp.com/resetpassword/" + mail + "/" + string,
+      "https://s3drive-aws.herokuapp.com/resetpassword/"+mail+"/"+string,
       {
         method: "PUT",
         headers: {
           "Content-type": "application/json",
         },
-        body: JSON.stringify({ password }),
+        body: JSON.stringify({ newPass:password }),
       }
     );
     let data = await res.json();
     console.log(err, data, user);
     await setErr(data.message);
-    
+
+    let updateString = await fetch(
+      "https://s3drive-aws.herokuapp.com/updateToken/" + mail,
+      {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json",
+        },
+      }
+    );
+    let updatedstring=await updateString.json()
+     console.log(updatedstring)
     //   return data
   };
 
@@ -55,7 +65,7 @@ const ResetPass = (props) => {
               <div class="form-group">
                 <label for="password">Password</label>
                 <input
-                  type="ematextil"
+                  type="password"
                   class="form-control"
                   id="password"
                   aria-describedby="emailHelp"

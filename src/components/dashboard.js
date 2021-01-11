@@ -73,6 +73,7 @@ const onSubmit=async()=>{
     if(!inputFile){
         alert('Please Choose a file')
     }else{
+      setLoader(true)
       let folder = "";
           const config = {
             bucketName: process.env.REACT_APP_AWS_BUCKET_NAME,
@@ -101,9 +102,11 @@ const onSubmit=async()=>{
                 body: JSON.stringify({ Key, url }),
               })
                 .then((res) => {
+                  
                   console.log(res);
                 })
                 .then(async () => {
+                  setLoader(false)
                   getData();
                   setInputfile();
                 });
@@ -117,13 +120,13 @@ const onSubmit=async()=>{
 const deleteFile=(key)=>{
     // console.log(key)
      const Key=key;
-      fetch("http://localhost:4000/delete/" + id, {
+      fetch("https://s3drive-aws.herokuapp.com/delete/" + id, {
         method: "POST",
         headers: {
           "Content-type": "application/json",
           Accept: "application/json",
         },
-        body: JSON.stringify({Key}),
+        body: JSON.stringify({ Key }),
       })
         .then((res) => {
           console.log(res);

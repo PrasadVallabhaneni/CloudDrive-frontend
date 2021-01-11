@@ -41,6 +41,12 @@ const FileCards = (props) => {
                           ></Dropdown.Toggle>
 
                           <Dropdown.Menu>
+                            <div style={{padding:'10px'}}>
+                              <a href={file.url} download target="blank">
+                                Download
+                              </a>
+                            </div>
+
                             <Dropdown.Item
                               onClick={() => props.deleteFile(file.Key)}
                             >

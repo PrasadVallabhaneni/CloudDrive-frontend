@@ -1,15 +1,16 @@
 import React,{useState,useEffect} from 'react'
 import S3 from "react-aws-s3";
-
+import Loader from './Loader';
 
 const FolderUpload = (props) => {
 const id = window.location.href.split("/").pop();
-
+const [loader,setLoader]=useState(false);
 const onSubmit = async () => {
   //  e.preventDefault();
   if (!props.inputFolder) {
     alert("Please Choose a file");
   } else {
+     setLoader(true)
     const files = Object.entries(props.inputFolder.files);
     files.forEach(async (file) => {
       const path = await file[1].webkitRelativePath.split("/");
@@ -31,6 +32,7 @@ const onSubmit = async () => {
       ReactS3Client.uploadFile(file[1], newFileName.join(""))
         .then((data) => {
           console.log(data);
+          
         })
         .catch((err) => console.error(err));
     });
@@ -47,6 +49,7 @@ const onSubmit = async () => {
       body: JSON.stringify({ key, url }),
     })   
       .then((res) => {
+        setLoader(false);
           props.getData();
         console.log(res);
       })
@@ -57,29 +60,29 @@ const onSubmit = async () => {
 
   
     return (
-      <div class="form-group" style={{ width: "250px" }}>
-        <div class="input-group mb-3">
-          <div class="custom-file">
-            <input
-              type="file"
-              class="custom-file-input"
-              id="inputGroupFile02"
-              onChange={props.onChangeFolder}
-              webkitdirectory="true"
-              directory
-              multiple
-            />
-            <label class="custom-file-label" for="inputGroupFile02">
-              {props.inputFolder
-                ? props.inputFolder.folderName
-                : "folder"}
-            
-            </label>
-          </div>
-          <div class="input-group-append">
-            <button type="button" class="btn btn-primary" onClick={onSubmit}>
-              Folder Upload
-            </button>
+      <div>
+       {loader?<Loader/>:null}
+        <div class="form-group" style={{ width: "250px" }}>
+          <div class="input-group mb-3">
+            <div class="custom-file">
+              <input
+                type="file"
+                class="custom-file-input"
+                id="inputGroupFile02"
+                onChange={props.onChangeFolder}
+                webkitdirectory="true"
+                directory
+                multiple
+              />
+              <label class="custom-file-label" for="inputGroupFile02">
+                {props.inputFolder ? props.inputFolder.folderName : "folder"}
+              </label>
+            </div>
+            <div class="input-group-append">
+              <button type="button" class="btn btn-primary" onClick={onSubmit}>
+                Folder Upload
+              </button>
+            </div>
           </div>
         </div>
       </div>

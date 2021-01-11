@@ -18,7 +18,7 @@ const FolderView = (props) => {
 const getData=async ()=>{
     console.log(props.location.name)
     const name=props.location.name
-    const data = await fetch("http://localhost:4000/files", {
+    const data = await fetch("https://s3drive-aws.herokuapp.com/files", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
