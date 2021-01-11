@@ -1,19 +1,21 @@
 import React, { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import Alert from "./alert";
+import Loader from './Loader'
 const ResetPass = (props) => {
   const [user, setUser] = useState({
     password: "",
   });
   const { password } = user;
   const [err, setErr] = useState();
-  
+  const [loader,setLoader]=useState(false);
   const onChange = (val) => {
     setErr();
     setUser({ ...user, [val.target.id]: val.target.value });
   };
 
   const onSubmit = async (val) => {
+    setLoader(true)
        let url = window.location.href;
 
        let arr = url.split("?");
@@ -33,25 +35,27 @@ const ResetPass = (props) => {
       }
     );
     let data = await res.json();
+    setLoader(false)
     console.log(err, data, user);
     await setErr(data.message);
 
-    let updateString = await fetch(
-      "https://s3drive-aws.herokuapp.com/updateToken/" + mail,
-      {
-        method: "PUT",
-        headers: {
-          "Content-type": "application/json",
-        },
-      }
-    );
-    let updatedstring=await updateString.json()
-     console.log(updatedstring)
+    // let updateString = await fetch(
+    //   "https://s3drive-aws.herokuapp.com/updateToken/" + mail,
+    //   {
+    //     method: "PUT",
+    //     headers: {
+    //       "Content-type": "application/json",
+    //     },
+    //   }
+    // );
+    // let updatedstring=await updateString.json()
+    //  console.log(updatedstring)
     //   return data
   };
 
   return (
     <Container className="formCont">
+    {loader?<Loader/>:null}
       <Row>
         <Col md={4}></Col>
         <Col md={4}>
@@ -59,7 +63,7 @@ const ResetPass = (props) => {
             <strong>Enter New Pass</strong>
           </h2>
 
-          {err && <Alert message={err} />}
+          {err && <Alert message={err} variant='info'/>}
           <form className="form" onSubmit={onSubmit}>
             <fieldset>
               <div class="form-group">
