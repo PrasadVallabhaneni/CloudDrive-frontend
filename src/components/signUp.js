@@ -42,7 +42,7 @@ const [err, setErr] = useState();
             <h2>
               <strong>Sign Up</strong>
             </h2>
-            {err && <Alert message={err} variant='danger'/>}
+            {err && <Alert message={err} variant='info'/>}
             <form className="form" onSubmit={onSubmit}>
               <fieldset>
                 <div class="form-group">
@@ -55,6 +55,7 @@ const [err, setErr] = useState();
                     placeholder="Enter Name"
                     value={name}
                     onChange={onChange}
+                    required
                   />
                 </div>
                 <div class="form-group">
@@ -67,6 +68,7 @@ const [err, setErr] = useState();
                     placeholder="Enter email"
                     value={email}
                     onChange={onChange}
+                    required
                   />
                 </div>
                 <div class="form-group">
@@ -78,6 +80,7 @@ const [err, setErr] = useState();
                     placeholder="Password"
                     value={password}
                     onChange={onChange}
+                    required
                   />
                 </div>
               </fieldset>

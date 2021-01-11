@@ -76,6 +76,7 @@ const ResetPass = (props) => {
                   placeholder="Enter Password"
                   value={password}
                   onChange={onChange}
+                  required
                 />
               </div>
             </fieldset>

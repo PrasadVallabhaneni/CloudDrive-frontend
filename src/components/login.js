@@ -73,6 +73,7 @@ const [id,setIdd]=useState();
                   placeholder="Enter email"
                   value={email}
                   onChange={onChange}
+                  required
                 />
               </div>
               <div class="form-group">
@@ -84,6 +85,7 @@ const [id,setIdd]=useState();
                   placeholder="Password"
                   value={password}
                   onChange={onChange}
+                  required
                 />
               </div>
             </fieldset>

@@ -56,6 +56,7 @@ const ForgotPass = () => {
                   placeholder="Enter email"
                   value={email}
                   onChange={onChange}
+                  required
                 />
               </div>
              
