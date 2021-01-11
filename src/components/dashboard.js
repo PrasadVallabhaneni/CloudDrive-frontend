@@ -23,6 +23,7 @@ const [files, setFiles] = useState();
 const [folders,setFolders]=useState();
 const [inputFile,setInputfile]=useState();
 const [inputFolder, setInputFolder] = useState();
+const [loader,setLoader]=useState(false);
 const onClick = (file) => {
     
   console.log(files);
@@ -30,6 +31,7 @@ const onClick = (file) => {
 };
 
 const getData=async ()=>{
+  setLoader(true)
     const data = await fetch("https://s3drive-aws.herokuapp.com/user/" + Id, {
       method: "GET",
       headers: {
@@ -44,6 +46,7 @@ const getData=async ()=>{
         }
     }else{
           let res = await data.json();
+           setLoader(false);
           await setFiles(res.paths);
           await setFolders(res.folders);
           // const Id = window.location.href.split("/").pop();
@@ -183,10 +186,10 @@ useEffect( async () => {
         {/* <button disabled type="button" class="btn btn-outline-success">
           Create Folder
         </button> */}
-
-       {files?(<FileCards files={files} deleteFile={deleteFile} />
-       ): <Loader/>}
-       {folders? <FolderCards folders={folders} id={id} deleteFile={deleteFile} />:<Loader/>}
+        {loader?<Loader/>:null}
+       {files &&(<FileCards files={files} deleteFile={deleteFile} />
+       )}
+       {folders && <FolderCards folders={folders} id={id} deleteFile={deleteFile} />}
       </Container>
     );
 }
