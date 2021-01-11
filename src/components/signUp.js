@@ -1,6 +1,7 @@
 import React,{useState} from 'react';
 import {Container,Row,Col} from 'react-bootstrap';
 import Alert from "./alert";
+import Loader from './Loader'
 const SignUp = () => {
     const [user,setUser]=useState({
         name:'',
@@ -9,6 +10,7 @@ const SignUp = () => {
         status:false
     });
     const {name,email,password}=user;
+    const [loader,setLoader]=useState(false);
 const [err, setErr] = useState();
     const onChange=(val)=>{
         setErr();
@@ -16,6 +18,7 @@ const [err, setErr] = useState();
     }
    
     const onSubmit=async (val)=>{
+      setLoader(true);
         val.preventDefault();
     val.preventDefault();
       let res = await fetch("https://s3drive-aws.herokuapp.com/register", {
@@ -26,18 +29,20 @@ const [err, setErr] = useState();
         body: JSON.stringify(user),
       });
       let data=await res.json();
+      setLoader(false);
       await setErr(data.message);
       console.log(err,data,user);
     }
     return (
       <Container className="formCont">
+      {loader?<Loader/>:null}
         <Row>
           <Col md={4}></Col>
           <Col md={4}>
             <h2>
               <strong>Sign Up</strong>
             </h2>
-            {err && <Alert message={err} />}
+            {err && <Alert message={err} variant='danger'/>}
             <form className="form" onSubmit={onSubmit}>
               <fieldset>
                 <div class="form-group">

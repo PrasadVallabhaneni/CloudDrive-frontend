@@ -5,7 +5,7 @@ const AlertMessage = (props) => {
     
     return (
       
-      <Alert variant="danger" dismissible>
+      <Alert variant={props.variant} dismissible>
         <Alert.Heading>{props.message}</Alert.Heading>
       </Alert>
     )

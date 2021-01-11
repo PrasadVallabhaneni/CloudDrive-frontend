@@ -8,14 +8,14 @@ const [userName, setUserName] = useState(props.name);
 
 const getUser=()=>{
   if(redirect){
-    setUserName('Signin')
+    setUserName()
   }else{
     setUserName(props.name)
   }
 }
 const logout=async ()=>{
   await localStorage.setItem("token", "");
-  setUserName('SignIn');
+  setUserName();
    setRedirect(true);
 }
 useEffect(()=>{
@@ -23,26 +23,27 @@ useEffect(()=>{
 })
   return (
     <header>
-      {redirect? <Redirect to='/login'/>:null}
+      {redirect ? <Redirect to="/" /> : null}
       <Navbar bg="light" expand="lg" collapseOnSelect>
         <Container>
           {/* <Link to="/dashboard"> */}
-            <Navbar.Brand style={{ color: "green" }}>
-              <i class="fab fa-google-drive fa-2x">My Drive</i>
-            </Navbar.Brand>
+          <Navbar.Brand style={{ color: "green" }}>
+            <i class="fab fa-google-drive fa-2x">My Drive</i>
+          </Navbar.Brand>
           {/* </Link> */}
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ml-auto">
-          
-                <Nav.Link>
-                  <i className="fas fa-user"></i>&nbsp;
-                  {userName}
-                </Nav.Link>
-             
-              <Nav.Link onClick={logout}>
+              <Nav.Link>
+                <i className="fas fa-user"></i>&nbsp;
+                {userName? userName : <Link to='/'>Signin</Link>}
+              </Nav.Link>
+
+              {userName && (
+                <Nav.Link onClick={logout}>
                   <i class="fas fa-sign-out-alt"></i>&nbsp; Logout
                 </Nav.Link>
+              )}
             </Nav>
           </Navbar.Collapse>
         </Container>

@@ -4,7 +4,7 @@ import { Container, Row, Col,Nav } from "react-bootstrap";
 import Alert from './alert';
 import { Link,Redirect } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
-
+import Loader from './Loader'
 const Login = () => {
   const [user, setUser] = useState({
     email: "",
@@ -12,6 +12,7 @@ const Login = () => {
   });
   const {email, password } = user;
   const [err,setErr]=useState();
+  const [loader,setLoader]=useState(false);
 const [id,setIdd]=useState();
   const onChange = (val) => {
       setErr();
@@ -20,6 +21,7 @@ const [id,setIdd]=useState();
   };
 
   const onSubmit = async (val) => {
+      setLoader(true);
       let email=user.email;
       let password=user.password;
     val.preventDefault();
@@ -31,10 +33,13 @@ const [id,setIdd]=useState();
         body: JSON.stringify({ email, password }),
       });
       let data=await res.json();
-      
-      await setIdd(data.id);
-      await setErr(data.message);
-      await localStorage.setItem("token", data.token);
+        await setIdd(data.id);
+        setLoader(false);
+        await setErr(data.message);
+        await localStorage.setItem("token", data.token);
+     
+         
+     
       
       console.log(user,id,err);
     //   return data
@@ -53,8 +58,9 @@ const [id,setIdd]=useState();
           <h2>
             <strong>Login</strong>
           </h2>
+          {loader?<Loader/>:null}
           {err==='success' && <Redirect  to={`/dashboard/${id}`}/>}
-          {err && <Alert message={err} />}
+          {err && <Alert message={err} variant='danger' />}
           <form className="form" onSubmit={onSubmit}>
             <fieldset>
               <div class="form-group">

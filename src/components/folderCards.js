@@ -1,7 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import { Card, Row, Col, Dropdown } from "react-bootstrap";
-const FolderCards = (props) => {
+const FolderCards = ({folders,id,deleteFile}) => {
 
     // const deleteFolder= async (key)=>{
     //       const name = key
@@ -31,36 +31,39 @@ const FolderCards = (props) => {
     
 
     // }
+    const folderClick=()=>{
+      // console.log(folders)
+    }
   return (
     <div>
-      {props.folders ? (
+      {folders ? (
         <Row style={{ marginTop: "5%" }}>
-          {props.folders.map((folder) => (
+          {folders.map((folder) => (
             <Col key={folder.key} sm={12} md={6} lg={4} xl={3}>
               <Card style={{ marginTop: "10px" }}>
                 <Card.Body id={folder.key}>
                   <Row>
-                    <Col lg={10} sm={10} md={10} xs={10}>
+                    <Col lg={12} sm={12} md={12} xs={12}>
                       <Link
                         to={{
-                          pathname: `/folder/${props.id}/${folder.key
+                          pathname: `/folder/${id}/${folder.key
                             .split("/")
                             .join("")}`,
                           name: folder.key,
-                          deleteFile: props.deleteFile,
-                          id: props.id,
+                          deleteFile:deleteFile,
+                          id: id,
                         }}
                       >
                         <div>
                           <i class="fas fa-folder"></i>
-                          {folder.key}
+                        {folder.key}
                         </div>
                       </Link>
                     </Col>
 
-                    <Col lg={2} sm={2} md={2} xs={2}>
-                      {/* <Popover delete={deleteFile} key={file.key} /> */}
-                      <Dropdown>
+                    {/* <Col lg={2} sm={2} md={2} xs={2}> */}
+                    {/* <Popover delete={deleteFile} key={file.key} /> */}
+                    {/* <Dropdown>
                         <Dropdown.Toggle
                           style={{
                             background: "none",
@@ -78,8 +81,8 @@ const FolderCards = (props) => {
                             Delete
                           </Dropdown.Item>
                         </Dropdown.Menu>
-                      </Dropdown>
-                    </Col>
+                      </Dropdown> */}
+                    {/* </Col> */}
                   </Row>
                 </Card.Body>
               </Card>

@@ -12,6 +12,7 @@ import {Link,Redirect} from 'react-router-dom'
 import S3 from 'react-aws-s3';
 import FolderUpload from './folderUpload';
 import FileCards from './fileCards';
+import Loader from './Loader';
 import FolderCards from './folderCards'
 const Dashboard = (props) => {
 
@@ -183,8 +184,9 @@ useEffect( async () => {
           Create Folder
         </button> */}
 
-        <FileCards files={files} deleteFile={deleteFile} />
-        <FolderCards folders={folders}  id={id} />
+       {files?(<FileCards files={files} deleteFile={deleteFile} />
+       ): <Loader/>}
+       {folders? <FolderCards folders={folders} id={id} deleteFile={deleteFile} />:<Loader/>}
       </Container>
     );
 }

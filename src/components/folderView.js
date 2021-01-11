@@ -49,6 +49,7 @@ useEffect(async () => {
 
     return (
       <Container style={{ marginTop: "1%" }}>
+        <Link to={{pathname:`/dashboard/${props.location.id}`}}>Go Back</Link>
         {files?<FileCards files={files} deleteFile={props.location.deleteFile} />:'Folder Empty'}
 
         {folders?<FolderCards folders={folders} deleteFile={props.location.deleteFile} id={props.location.id} />:null}
