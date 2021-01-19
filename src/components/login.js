@@ -34,6 +34,7 @@ const [id,setIdd]=useState();
       });
       let data=await res.json();
         await setIdd(data.id);
+        await localStorage.setItem('id',data.id);
         setLoader(false);
         await setErr(data.message);
         await localStorage.setItem("token", data.token);

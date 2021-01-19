@@ -16,9 +16,12 @@ import Loader from './Loader';
 import FolderCards from './folderCards'
 const Dashboard = (props) => {
 
-    const Id = window.location.href.split("/").pop();
+    // const Id = window.location.href.split("/").pop();
+    const id=localStorage.getItem('id')
+    // console.log(localStorage.getItem(idd))
 const [mess,setMess]=useState({redirect:false});
-const [id,setId]=useState();
+// const [id,setId]=useState();
+const [name,setName]=useState();
 const [files, setFiles] = useState();
 const [folders,setFolders]=useState();
 const [inputFile,setInputfile]=useState();
@@ -32,7 +35,7 @@ const onClick = (file) => {
 
 const getData=async ()=>{
   setLoader(true)
-    const data = await fetch("https://s3drive-aws.herokuapp.com/user/" + Id, {
+    const data = await fetch("https://s3drive-aws.herokuapp.com/user/" + id, {
       method: "GET",
       headers: {
         authorization: localStorage.getItem("token"),
@@ -47,11 +50,12 @@ const getData=async ()=>{
     }else{
           let res = await data.json();
            setLoader(false);
+           await props.getUser(res.name);
           await setFiles(res.paths);
           await setFolders(res.folders);
           // const Id = window.location.href.split("/").pop();
-          setId(Id);
-          props.getUser(res.name);
+          // setId(Id);
+         
     }
      
 }
@@ -135,11 +139,9 @@ const deleteFile=(key)=>{
           getData();
         });
 }
- 
-  
+//  props.getUser(name);
 useEffect( async () => {
    getData();
-  
     //  console.log(id)
 },[])
 

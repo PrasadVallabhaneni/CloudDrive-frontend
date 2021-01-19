@@ -47,8 +47,7 @@ const FolderCards = ({folders,id,deleteFile}) => {
                       <Link
                         to={{
                           pathname: `/folder/${id}/${folder.key
-                            .split("/")
-                            .join("")}`,
+                           }`,
                           name: folder.key,
                           deleteFile:deleteFile,
                           id: id,

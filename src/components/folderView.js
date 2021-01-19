@@ -1,5 +1,6 @@
 import React,{useState,useEffect} from 'react'
-import { Link, Redirect } from "react-router-dom";
+import { Link, Redirect,useLocation } from "react-router-dom";
+
 import {
   Card,
   Container,
@@ -7,6 +8,7 @@ import {
   Col,
   DropdownButton,
   Dropdown,
+  Button
 } from "react-bootstrap";
 import FileCards from './fileCards';
 import FolderCards from './folderCards';
@@ -14,17 +16,25 @@ const FolderView = (props) => {
  
     const[files,setFiles]=useState();
     const[folders,setFolders]=useState();
-
+    const[mess,setMess]=useState(false)
 const getData=async ()=>{
     console.log(props.location.name)
     const name=props.location.name
-    const data = await fetch("https://s3drive-aws.herokuapp.com/files", {
+    const data = await fetch("http://localhost:4000/files", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
+        authorization: localStorage.getItem("token"),
       },
       body: JSON.stringify({ name }),
     });
+      let status = await data.status;
+     if (status == 401) {
+       alert("Session ends please login again");
+       if (alert) {
+         setMess(true);
+       }
+     }else{
    
           let res = await data.json();
         //   await setFiles(res.paths);
@@ -40,19 +50,49 @@ const getData=async ()=>{
         setFolders(res[1]); 
              
 }
-
+}
+const location=useLocation();
+console.log(props)
 useEffect(async () => {
   getData();
    console.log(files,folders)
   //  console.log(id)
-}, []);
-
+}, [location]);
+// /folder/5ffbfdf580611c0017e71a02/Guvi-Portfolio/images/"
     return (
       <Container style={{ marginTop: "1%" }}>
-        <Link to={{pathname:`/dashboard/${props.location.id}`}}>Go Back</Link>
-        {files?<FileCards files={files} deleteFile={props.location.deleteFile} />:'Folder Empty'}
+        {mess ? <Redirect to="/login" /> : null}
+        <Link to={{ pathname: `/dashboard/${props.location.id}` }}>
+          Go Back
+        </Link>
+        {/* <Button type='button' onClick={onClick}>Go Back</Button> */}
+        {/* <Link
+          to={{
+            name: props.location.pathname.split("/"),
+            pathname: `${props.location.name
+              .split("/")
+              .pop()
+              .join("/")}`,
 
-        {folders?<FolderCards folders={folders} deleteFile={props.location.deleteFile} id={props.location.id} />:null}
+            deleteFile: "",
+            id: props.location.id,
+          }}
+        >
+          Go Back
+        </Link> */}
+        {files ? (
+          <FileCards files={files} deleteFile={props.location.deleteFile} />
+        ) : (
+          "Folder Empty"
+        )}
+
+        {folders ? (
+          <FolderCards
+            folders={folders}
+            deleteFile={props.location.deleteFile}
+            id={props.location.id}
+          />
+        ) : null}
       </Container>
     );
 }
