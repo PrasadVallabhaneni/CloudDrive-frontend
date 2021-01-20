@@ -1,8 +1,8 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import { Card, Row, Col, Dropdown } from "react-bootstrap";
-const FolderCards = ({folders,id,deleteFile}) => {
-
+const FolderCards = ({folders,deleteFile}) => {
+  const id=localStorage.getItem('id')
     // const deleteFolder= async (key)=>{
     //       const name = key
     //       const data = await fetch("http://localhost:4000/files", {
@@ -37,7 +37,7 @@ const FolderCards = ({folders,id,deleteFile}) => {
   return (
     <div>
       {folders ? (
-        <Row style={{ marginTop: "5%" }}>
+        <Row >
           {folders.map((folder) => (
             <Col key={folder.key} sm={12} md={6} lg={4} xl={3}>
               <Card style={{ marginTop: "10px" }}>
@@ -51,6 +51,7 @@ const FolderCards = ({folders,id,deleteFile}) => {
                           name: folder.key,
                           deleteFile:deleteFile,
                           id: id,
+                          
                         }}
                       >
                         <div>

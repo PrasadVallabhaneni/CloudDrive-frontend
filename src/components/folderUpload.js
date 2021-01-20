@@ -51,6 +51,7 @@ const onSubmit = async () => {
       .then((res) => {
         setLoader(false);
           props.getData();
+          props.setInputFolder();
         console.log(res);
       })
       

@@ -1,26 +1,34 @@
-import React,{useState,useEffect} from "react";
-import { Link, Redirect } from "react-router-dom";
+import React,{useState,useEffect,} from "react";
+import { Link, Redirect, useLocation } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
 import { Navbar, Nav, Container } from "react-bootstrap";
 const Header = (props) => {
-const [redirect,setRedirect]=useState(false)
+let [redirect,setRedirect]=useState(false)
 const [userName, setUserName] = useState(props.name);
- 
+ const location=useLocation();
 
-
+// const nameUpdate=()=>{
+//   if(userName.length){
+//       setRedirect(false);
+//   }
+// }
 
 const getUser=()=>{
-  
-    setUserName(props.name)
+    if(redirect){
+      setUserName()
+     
+    }else{
+setUserName(props.name);
+    }
+    
   
 }
-console.log(props.name)
 
 const logout=async ()=>{
  await  localStorage.setItem("token", "");
   await setRedirect(true);
-  await setUserName();
-  //  props.getUser("");
+  await props.getUser('');
+  await setRedirect(false);
 }
 useEffect(()=>{
  getUser();

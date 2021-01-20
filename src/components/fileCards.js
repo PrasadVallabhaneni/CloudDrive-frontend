@@ -9,7 +9,7 @@ const FileCards = (props) => {
     return (
       <div>
         {props.files ? (
-          <Row style={{ marginTop: "5%" }}>
+          <Row>
             {props.files.map((file) => (
               <Col key={file.Key} sm={12} md={6} lg={4} xl={3}>
                 <Card style={{ marginTop: "10px" }}>
@@ -41,7 +41,7 @@ const FileCards = (props) => {
                           ></Dropdown.Toggle>
 
                           <Dropdown.Menu>
-                            <div style={{padding:'10px'}}>
+                            <div style={{ padding: "10px" }}>
                               <a href={file.url} download target="blank">
                                 Download
                               </a>

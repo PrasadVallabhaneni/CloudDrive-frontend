@@ -18,8 +18,8 @@ const FolderView = (props) => {
     const[folders,setFolders]=useState();
     const[mess,setMess]=useState(false)
 const getData=async ()=>{
-    console.log(props.location.name)
-    const name=props.location.name
+    console.log(props.match.params['0'])
+    const name = props.match.params["0"];
     const data = await fetch("https://s3drive-aws.herokuapp.com/files", {
       method: "POST",
       headers: {
@@ -55,6 +55,7 @@ const location=useLocation();
 console.log(props)
 useEffect(async () => {
   getData();
+  console.log(location)
    console.log(files,folders)
   //  console.log(id)
 }, [location]);
@@ -62,7 +63,7 @@ useEffect(async () => {
     return (
       <Container style={{ marginTop: "1%" }}>
         {mess ? <Redirect to="/login" /> : null}
-        <Link to={{ pathname: `/dashboard/${props.location.id}` }}>
+        <Link to={{ pathname: `/dashboard/${localStorage.getItem('id')}` }}>
           Go Back
         </Link>
         {/* <Button type='button' onClick={onClick}>Go Back</Button> */}

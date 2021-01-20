@@ -151,50 +151,63 @@ useEffect( async () => {
     return (
       <Container style={{ marginTop: "1%" }}>
         {mess.redirect ? <Redirect to="/login" /> : null}
-        <div style={{ display: "inline-flex", flexWrap: "no-wrap" }}>
-          <div
-            class="form-group"
-            style={{ width: "250px", marginRight: "20px" }}
-          >
-            <div class="input-group mb-3">
-              <div class="custom-file">
-                <input
-                  type="file"
-                  class="custom-file-input"
-                  id="inputGroupFile02"
-                  onChange={onChange}
-                />
-                {/* <i class="fas fa-plus"></i> */}
-                <label class="custom-file-label" for="inputGroupFile02">
-                  {inputFile ? inputFile.name : "select file"}
-                </label>
-              </div>
-              <div class="input-group-append">
-                <button
-                  type="button"
-                  class="btn btn-primary"
-                  onClick={onSubmit}
-                >
-                  File Upload
-                </button>
+        <Row>
+          <Col sm={12} md={6} lg={6} xl={6}>
+            <div
+              class="form-group"
+              style={{ width: "250px", marginRight: "20px" }}
+            >
+              <div class="input-group mb-3">
+                <div class="custom-file">
+                  <input
+                    type="file"
+                    class="custom-file-input"
+                    id="inputGroupFile02"
+                    onChange={onChange}
+                  />
+                  {/* <i class="fas fa-plus"></i> */}
+                  <label class="custom-file-label" for="inputGroupFile02">
+                    {inputFile ? inputFile.name : "select file"}
+                  </label>
+                </div>
+                <div class="input-group-append">
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    onClick={onSubmit}
+                  >
+                    File Upload
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-          <FolderUpload
-            onChangeFolder={onChangeFolder}
-            getData={getData}
-            setMess={setMess}
-            inputFolder={inputFolder}
-          />
-        </div>
-
+          </Col>
+          <Col sm={12} md={6} lg={6} xl={6}>
+            <FolderUpload
+              onChangeFolder={onChangeFolder}
+              getData={getData}
+              setMess={setMess}
+              inputFolder={inputFolder}
+              setInputFolder={setInputFolder}
+            />
+          </Col>
+        </Row>
         {/* <button disabled type="button" class="btn btn-outline-success">
           Create Folder
         </button> */}
-        {loader?<Loader/>:null}
-       {files &&(<FileCards files={files} deleteFile={deleteFile} />
-       )}
-       {folders && <FolderCards folders={folders} id={id} deleteFile={deleteFile} />}
+        {loader ? <Loader /> : null}
+        <h3 style={{ marginTop: "4%" }}>Files</h3>
+        {files ? (
+          <FileCards files={files} deleteFile={deleteFile} />
+        ) : (
+          <h4>No files Uploaded</h4>
+        )}
+        <h3 style={{ marginTop: "4%" }}>Folders</h3>
+        {folders ? (
+          <FolderCards folders={folders} id={id} deleteFile={deleteFile} />
+        ) : (
+          <h4>No folders Uploaded</h4>
+        )}
       </Container>
     );
 }

@@ -20,19 +20,21 @@ function App() {
 
   }, [getUser,user]);
   return (
-    <BrowserRouter>
-      <Header name={user} getUser={getUser} />
-      <Route exact path="/" component={Login}></Route>
-      <Route path="/signup" component={Signup}></Route>
-      <Route path="/login" component={Login}></Route>
-      <Route path="/forgotForm" component={ForgotPass}></Route>
-      <Route path="/reset" component={ResetPass}></Route>
-      <Route
-        path="/dashboard/:id"
-        component={(props) => <Dashboard getUser={getUser} />}
-      ></Route>
-      <Route path="/folder/:id/*" component={FolderView}></Route>
-    </BrowserRouter>
+    <>
+      <BrowserRouter>
+        <Header name={user} getUser={getUser} />
+        <Route exact path="/" component={Login}></Route>
+        <Route path="/signup" component={Signup}></Route>
+        <Route path="/login" component={Login}></Route>
+        <Route path="/forgotForm" component={ForgotPass}></Route>
+        <Route path="/reset" component={ResetPass}></Route>
+        <Route
+          path="/dashboard/:id"
+          component={(props) => <Dashboard getUser={getUser} />}
+        ></Route>
+        <Route path="/folder/:id/*" component={FolderView}></Route>
+      </BrowserRouter>
+    </>
   );
 }
 
