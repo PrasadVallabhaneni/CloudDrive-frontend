@@ -197,17 +197,17 @@ useEffect( async () => {
         </button> */}
         {loader ? <Loader /> : null}
         <h3 style={{ marginTop: "4%" }}>Files</h3>
-        {files ? (
+        {files && (files.length? (
           <FileCards files={files} deleteFile={deleteFile} />
         ) : (
-          <h4>No files Uploaded</h4>
-        )}
+          "No files Uploaded"
+        ))}
         <h3 style={{ marginTop: "4%" }}>Folders</h3>
-        {folders ? (
+        {folders && (folders.length? (
           <FolderCards folders={folders} id={id} deleteFile={deleteFile} />
         ) : (
-          <h4>No folders Uploaded</h4>
-        )}
+          "No folders Uploaded"
+        ))}
       </Container>
     );
 }
