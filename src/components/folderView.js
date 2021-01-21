@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Link, Redirect, useLocation } from "react-router-dom";
-
 import {
   Card,
   Container,
@@ -10,12 +9,14 @@ import {
   Dropdown,
   Button,
 } from "react-bootstrap";
+import Loader from "./Loader";
 import FileCards from "./fileCards";
 import FolderCards from "./folderCards";
 const FolderView = (props) => {
   const [files, setFiles] = useState();
   const [folders, setFolders] = useState();
   const [mess, setMess] = useState(false);
+  const [pathname,setPathname]=useState();
   const getData = async () => {
     console.log(props.match.params["0"]);
     const name = props.match.params["0"];
@@ -54,6 +55,7 @@ const FolderView = (props) => {
   console.log(props);
   useEffect(async () => {
     getData();
+    setPathname(location.pathname.split('/').slice(3))
     console.log(location);
     console.log(files, folders);
     //  console.log(id)
@@ -63,8 +65,40 @@ const FolderView = (props) => {
     <Container style={{ marginTop: "1%" }}>
       {mess ? <Redirect to="/login" /> : null}
       <Link to={{ pathname: `/dashboard/${localStorage.getItem("id")}` }}>
-        Go Back
+        Go Home
       </Link>
+      <Container
+        style={{
+          fontSize: "15px",
+          margin: "2%",
+          backgroundColor: "#F0F0F0",
+          maxWidth:'400px',
+          borderRadius:'5px',
+
+        }}
+      >
+        {pathname &&
+          pathname.map((x, i) => {
+            return (
+              <p style={{ display: "inline-flex", marginRight: "7px",marginTop:'10px' }}>
+                <Link
+                  to={{
+                    pathname: `/folder/${localStorage.getItem("id")}/${
+                      pathname.slice(0, i + 1).join("/") + "/"
+                    }`,
+                    name: pathname.slice(0, i + 1).join("/") + "/",
+                    deleteFile: location.deleteFile,
+                    id: localStorage.getItem("id"),
+                  }}
+                >
+                  {" "}
+                  {x}
+                  {x && "/"}
+                </Link>
+              </p>
+            );
+          })}
+      </Container>
       {/* <Button type='button' onClick={onClick}>Go Back</Button> */}
       {/* <Link
           to={{
@@ -81,21 +115,23 @@ const FolderView = (props) => {
           Go Back
         </Link> */}
       <h3 style={{ marginTop: "4%" }}>Files</h3>
-      {files && (files.length? (
-        <FileCards files={files} deleteFile={props.location.deleteFile} />
-      ) : (
-        "No Files Found"
-      ))}
+      {files ?
+        (files.length ? (
+          <FileCards files={files} deleteFile={props.location.deleteFile} />
+        ) : (
+          "No Files Found"
+        )):<Loader/>}
       <h3 style={{ marginTop: "4%" }}>Folders</h3>
-      {folders && (folders.length?(
-        <FolderCards
-          folders={folders}
-          deleteFile={props.location.deleteFile}
-          id={props.location.id}
-        />
-      ) : (
-        "No Folders Found"
-      ))}
+      {folders ?
+        (folders.length ? (
+          <FolderCards
+            folders={folders}
+            deleteFile={props.location.deleteFile}
+            id={props.location.id}
+          />
+        ) : (
+          "No Folders Found"
+        )):<Loader/>}
     </Container>
   );
 };

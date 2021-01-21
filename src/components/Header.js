@@ -1,40 +1,37 @@
-import React,{useState,useEffect,} from "react";
+import React, { useState, useEffect } from "react";
 import { Link, Redirect, useLocation } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
 import { Navbar, Nav, Container } from "react-bootstrap";
 const Header = (props) => {
-let [redirect,setRedirect]=useState(false)
-const [userName, setUserName] = useState(props.name);
- const location=useLocation();
+  let [redirect, setRedirect] = useState(false);
+  const [userName, setUserName] = useState(props.name);
+  const location = useLocation();
 
-// const nameUpdate=()=>{
-//   if(userName.length){
-//       setRedirect(false);
-//   }
-// }
+  // const nameUpdate=()=>{
+  //   if(userName.length){
+  //       setRedirect(false);
+  //   }
+  // }
 
-const getUser=()=>{
-    if(redirect){
-      setUserName()
-     
-    }else{
-setUserName(props.name);
+  const getUser = () => {
+    if (redirect) {
+      setUserName();
+    } else {
+      setUserName(props.name);
     }
-    
-  
-}
+  };
 
-const logout=async ()=>{
- await  localStorage.setItem("token", "");
-  await setRedirect(true);
-  await props.getUser('');
-  await setRedirect(false);
-}
-useEffect(()=>{
- getUser();
- console.log(props.name)
- console.log(redirect)
-},[props.name,redirect])
+  const logout = async () => {
+    await localStorage.setItem("token", "");
+    await setRedirect(true);
+    await props.getUser("");
+    await setRedirect(false);
+  };
+  useEffect(() => {
+    getUser();
+    console.log(props.name);
+    console.log(redirect);
+  }, [props.name, redirect]);
   return (
     <header>
       {redirect ? <Redirect to="/" /> : null}
@@ -50,7 +47,7 @@ useEffect(()=>{
             <Nav className="ml-auto">
               <Nav.Link>
                 <i className="fas fa-user"></i>&nbsp;
-                {userName? userName : <Link to='/'>Signin</Link>}
+                {userName ? userName : <Link to="/">Signin</Link>}
               </Nav.Link>
 
               {userName && (
@@ -67,5 +64,3 @@ useEffect(()=>{
 };
 
 export default Header;
-
-

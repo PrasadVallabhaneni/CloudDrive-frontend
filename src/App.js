@@ -16,9 +16,7 @@ function App() {
     setUser(username);
     console.log(user);
   };
-  useEffect(() => {
-
-  }, [getUser,user]);
+  
   return (
     <>
       <BrowserRouter>

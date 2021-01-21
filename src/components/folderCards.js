@@ -56,7 +56,7 @@ const FolderCards = ({folders,deleteFile}) => {
                       >
                         <div>
                           <i class="fas fa-folder"></i>
-                        {folder.key}
+                        {folder.key.split('/').slice(-2)}
                         </div>
                       </Link>
                     </Col>
