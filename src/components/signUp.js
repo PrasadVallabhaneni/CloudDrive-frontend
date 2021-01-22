@@ -1,14 +1,16 @@
 import React,{useState} from 'react';
 import {Container,Row,Col} from 'react-bootstrap';
+import {useHistory} from 'react-router-dom';
 import Alert from "./alert";
 import Loader from './Loader'
-const SignUp = ({history}) => {
+const SignUp = () => {
     const [user,setUser]=useState({
         name:'',
         email:'',
         password:'',
         status:false
     });
+    const history=useHistory();
     const {name,email,password}=user;
     const [loader,setLoader]=useState(false);
 const [err, setErr] = useState();
