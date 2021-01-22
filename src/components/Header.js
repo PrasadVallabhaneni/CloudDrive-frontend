@@ -47,7 +47,7 @@ const Header = (props) => {
             <Nav className="ml-auto">
               <Nav.Link>
                 <i className="fas fa-user"></i>&nbsp;
-                {userName ? userName : <Link to="/">Signin</Link>}
+                {userName ? userName : <Link to="/">SignIn</Link>}
               </Nav.Link>
 
               {userName && (

@@ -195,19 +195,21 @@ useEffect( async () => {
         {/* <button disabled type="button" class="btn btn-outline-success">
           Create Folder
         </button> */}
+        <h6 style={{color:'grey',wordSpacing:'5px'}}><strong>Help:</strong> Click on browse to select files/folders and click on upload button to upload your files/folders.</h6>
+
         {loader ? <Loader /> : null}
         <h3 style={{ marginTop: "4%" }}>Files</h3>
-        {files && (files.length? (
+        {files ? (files.length? (
           <FileCards files={files} deleteFile={deleteFile} />
         ) : (
           "No files Uploaded"
-        ))}
+        )) : "No files Uploaded"}
         <h3 style={{ marginTop: "4%" }}>Folders</h3>
-        {folders && (folders.length? (
+        {folders ? (folders.length? (
           <FolderCards folders={folders} id={id} deleteFile={deleteFile} />
         ) : (
           "No folders Uploaded"
-        ))}
+        )) : "No folders Uploaded" }
       </Container>
     );
 }

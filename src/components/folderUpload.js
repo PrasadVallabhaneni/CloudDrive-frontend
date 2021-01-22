@@ -8,7 +8,7 @@ const [loader,setLoader]=useState(false);
 const onSubmit = async () => {
   //  e.preventDefault();
   if (!props.inputFolder) {
-    alert("Please Choose a file");
+    alert("Please Choose a folder");
   } else {
      setLoader(true)
     const files = Object.entries(props.inputFolder.files);
@@ -62,8 +62,8 @@ const onSubmit = async () => {
   
     return (
       <div>
-       {loader?<Loader/>:null}
-        <div class="form-group" style={{ width: "250px" }}>
+        {loader ? <Loader /> : null}
+        <div class="form-group" style={{ width: "280px"}}>
           <div class="input-group mb-3">
             <div class="custom-file">
               <input
@@ -76,7 +76,9 @@ const onSubmit = async () => {
                 multiple
               />
               <label class="custom-file-label" for="inputGroupFile02">
-                {props.inputFolder ? props.inputFolder.folderName : "folder"}
+                {props.inputFolder
+                  ? props.inputFolder.folderName
+                  : "select folder"}
               </label>
             </div>
             <div class="input-group-append">

@@ -2,7 +2,7 @@ import React,{useState} from 'react';
 import {Container,Row,Col} from 'react-bootstrap';
 import Alert from "./alert";
 import Loader from './Loader'
-const SignUp = () => {
+const SignUp = ({history}) => {
     const [user,setUser]=useState({
         name:'',
         email:'',
@@ -31,6 +31,11 @@ const [err, setErr] = useState();
       let data=await res.json();
       setLoader(false);
       await setErr(data.message);
+      if(data.status){
+       setTimeout(function () {
+         history.push('/')
+       }, 2000);
+      }
       console.log(err,data,user);
     }
     return (
