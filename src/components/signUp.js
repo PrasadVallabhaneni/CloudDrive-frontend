@@ -38,7 +38,7 @@ const [err, setErr] = useState();
          history.push('/')
        }, 2000);
       }
-      console.log(err,data,user);
+//       console.log(err,data,user);
     }
     return (
       <Container className="formCont">
