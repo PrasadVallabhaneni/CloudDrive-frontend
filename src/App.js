@@ -14,7 +14,7 @@ function App() {
 
   const getUser = (username) => {
     setUser(username);
-    console.log(window.location.pathname.split('/')[0]);
+    console.log(window.location.href.split('/')[0]);
   };
   
   return (
