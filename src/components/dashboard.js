@@ -35,7 +35,7 @@ const onClick = (file) => {
 
 const getData=async ()=>{
   setLoader(true)
-    const data = await fetch(window.location.hostname + id, {
+    const data = await fetch("https://s3drive-aws.herokuapp.com/user/"+ id, {
       method: "GET",
       headers: {
         authorization: localStorage.getItem("token"),
